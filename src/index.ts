@@ -49,8 +49,9 @@ export class SnowflakeDialect extends knex.Client {
     return transax;
   }
   // @ts-ignore
-  queryCompiler(builder: any, formatter: any) {
-    return new QueryCompiler(this, builder, formatter);
+  queryCompiler(builder: any) {
+    const compiledQuery: any = new QueryCompiler(this, builder)
+    return compiledQuery;
   }
 
   columnBuilder(tableBuilder: any, type: any, args: any) {
@@ -114,7 +115,7 @@ export class SnowflakeDialect extends knex.Client {
   // Get a raw connection, called by the `pool` whenever a new
   // connection needs to be added to the pool.
   acquireRawConnection() {
-    return new Bluebird((resolver, rejecter) => {
+    const connection_ : any =   new Bluebird((resolver, rejecter) => {
       // @ts-ignore
       const connection = this.driver.createConnection(this.connectionSettings);
       connection.on('error', (err) => {
@@ -129,6 +130,8 @@ export class SnowflakeDialect extends knex.Client {
         resolver(connection);
       });
     });
+
+    return connection_
   }
 
   // Used to explicitly close a connection, called internally by the pool
