@@ -49,8 +49,8 @@ export class SnowflakeDialect extends knex.Client {
     return transax;
   }
   // @ts-ignore
-  queryCompiler(builder: any, formatter: any) {
-    const compiledQuery: any = new QueryCompiler(this, builder, formatter)
+  queryCompiler(builder: any) {
+    const compiledQuery: any = new QueryCompiler(this, builder)
     return compiledQuery;
   }
 
@@ -114,7 +114,7 @@ export class SnowflakeDialect extends knex.Client {
 
   // Get a raw connection, called by the `pool` whenever a new
   // connection needs to be added to the pool.
-  acquireRawConnection() {
+  acquireRawConnection() {debugger
     const connection_ : any =   new Bluebird((resolver, rejecter) => {
       // @ts-ignore
       const connection = this.driver.createConnection(this.connectionSettings);
